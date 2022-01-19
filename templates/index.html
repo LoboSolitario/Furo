@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
 		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
 	</head>
-	<body class="is-preload">
+	<body class="is-preload" onload="get_index_data()" >
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -22,10 +22,10 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li><a 	class="active" onclick="index1()">Index 1</a></li>
-							<li><a onclick="index2()">Index 2</a></li>
-							<li><a onclick="index3()">Index 3</a></li>
-							<li><a onclick="index4()">Index 4</a></li>
+							<li><a 	class="active" id="index1">Index 1</a></li>
+							<li><a id="index2">Index 2</a></li>
+							<li><a id="index3">Index 3</a></li>
+							<li><a id="index4">Index 4</a></li>
 						</ul>
 					</nav>
 
