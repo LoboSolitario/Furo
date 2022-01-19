@@ -7,8 +7,10 @@ function get_index_data(){
     .then((response)=> response.json())
     .then((index_data) => {
         index_list = index_data;
+        
         // setting the value of index for the first page load.
         index = index_list['index1'];
+        console.log(index)
     });
     
 }
@@ -43,22 +45,25 @@ eventSource.onmessage = function(e) {
     dict = JSON.parse(e.data);
     var tbody = document.getElementById("pyth-data-table-tbody")
     tbody.innerHTML = ""
-    for (var i = 1; i < dict.length; i++){
-        if(index && index.includes(dict[i]['Market'])){
-            var tr = document.createElement('tr'); 
-            var td1 = document.createElement('td');
-            var td2 = document.createElement('td');
-            var td3 = document.createElement('td');
-            var text1 = document.createTextNode(dict[i]['Market']);
-            var text2 = document.createTextNode(parseFloat(dict[i]['Value']).toFixed(3)+' +/- '+ parseFloat(dict[i]['Confidence']).toFixed(2));
-            var text3 = document.createTextNode(" ");
-            td1.appendChild(text1);
-            td2.appendChild(text2);
-            td3.appendChild(text3);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            tbody.appendChild(tr);
+    for (var i = 0; i < index.length;i++){
+        //console.log(index[i])
+        for (var j = 0; j < dict.length; j++){
+            if(dict[j]['Market']==index[i][0]){
+                var tr = document.createElement('tr'); 
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+                var td3 = document.createElement('td');
+                var text1 = document.createTextNode(dict[i]['Market']);
+                var text2 = document.createTextNode(parseFloat(dict[i]['Value']).toFixed(3)+' +/- '+ parseFloat(dict[i]['Confidence']).toFixed(2));
+                var text3 = document.createTextNode(index[i][1]);
+                td1.appendChild(text1);
+                td2.appendChild(text2);
+                td3.appendChild(text3);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tbody.appendChild(tr);
+            }
         }
     }
     table.appendChild(tbody);

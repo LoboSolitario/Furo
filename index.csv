@@ -1,5 +1,10 @@
-Index_name,1,2,3,4
-index1,Crypto.LTC/USD,Crypto.BTC/USD,Equity.US.QQQ/USD
-index2,Crypto.LTC/USD,Crypto.BTC/USD
-index3,Crypto.BTC/USD
-index4,Equity.US.QQQ/USD,Crypto.LTC/USD
+index_name,asset,weight
+index1,Crypto.LTC/USD,69
+index1,Crypto.BTC/USD,12
+index1,Equity.US.QQQ/USD,15
+index2,Crypto.LTC/USD,40
+index2,Crypto.BTC/USD,70
+index3,Equity.US.QQQ/USD,34
+index4,Equity.US.QQQ/USD,23
+index4,Crypto.LTC/USD,43
+
