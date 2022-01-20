@@ -7,10 +7,8 @@ function get_index_data(){
     .then((response)=> response.json())
     .then((index_data) => {
         index_list = index_data;
-        
         // setting the value of index for the first page load.
         index = index_list['index1'];
-        console.log(index)
     });
     
 }
@@ -50,15 +48,19 @@ eventSource.onmessage = function(e) {
         for (var j = 0; j < dict.length; j++){
             if(dict[j]['Market']==index[i][0]){
                 var tr = document.createElement('tr'); 
+                var tdnum = document.createElement('td');
                 var td1 = document.createElement('td');
                 var td2 = document.createElement('td');
                 var td3 = document.createElement('td');
-                var text1 = document.createTextNode(dict[i]['Market']);
-                var text2 = document.createTextNode(parseFloat(dict[i]['Value']).toFixed(3)+' +/- '+ parseFloat(dict[i]['Confidence']).toFixed(2));
-                var text3 = document.createTextNode(index[i][1]);
+                var textnum = document.createTextNode(i+1);
+                var text1 = document.createTextNode(dict[j]['Market'].split(".").pop());
+                var text2 = document.createTextNode(parseFloat(dict[j]['Value']+ 3*dict[j]['Confidence']).toFixed(4));
+                var text3 = document.createTextNode(parseFloat(index[i][1]).toFixed(2));
                 td1.appendChild(text1);
                 td2.appendChild(text2);
                 td3.appendChild(text3);
+                tdnum.appendChild(textnum);
+                tr.appendChild(tdnum);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
@@ -70,3 +72,23 @@ eventSource.onmessage = function(e) {
 
 };
 
+
+
+
+
+function disconnectAccount()
+{
+  window.solana.disconnect();
+  window.solana.on('disconnect', () => console.log("disconnected!"))
+
+}
+function getAccount()
+{
+    window.solana.connect();
+    window.solana.request({ method: "connect" })
+
+    window.solana.isConnected
+    window.solana.autoApproved
+
+    console.log(window.solana.publicKey.toString());
+}
