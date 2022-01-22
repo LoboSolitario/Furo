@@ -97,7 +97,7 @@ function getAccount(){
                 key: phantom_key
             })
             console.log(send_key)
-            fetch('/phantom_connected', {
+            fetch('/phantom_get', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -114,3 +114,5 @@ function getAccount(){
     });
 
   }
+
+  

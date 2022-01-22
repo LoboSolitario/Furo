@@ -70,12 +70,12 @@ def get_asset_data():
     asset_data = pd.read_csv("out.csv")
     return jsonify(asset_data.to_dict(orient="records"))
 
-@app.route("/phantom_connected", methods = (["POST"]))
-def phantom_connected():
+@app.route("/phantom_get", methods = (["POST"]))
+def phantom_get():
     if request.method == "POST":
         req = request.get_json()
         session['phantom_key'] = req['key']
-        return "recieved"
+        return render_template("index.html")
 
 @app.route("/btfd", methods = ['GET', 'POST'])
 def btfd():

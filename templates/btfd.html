@@ -32,7 +32,13 @@
 							<li><a href="/">Asset Baskets</a></li>
 							<li><a href="/btfd"class="active">BTFD</a></li>
 							<li><a href="/create_index">Custom Baskets </a></li>
-							<li><a onclick="getAccount()">Connect Phantom Wallet</a></li>
+							<li><a onclick="getAccount()">
+								{% if session['phantom_key'] %} 
+										Disconnect Phantom Wallet 
+								{% else %}  
+									Connect Phantom Wallet
+								{% endif %}	
+							</a></li>
 						</ul>
 					</nav>
 				<!-- Main -->

@@ -30,7 +30,7 @@
 					<header id="header" class="alt">
 						<span class="logo"><img src="{{ url_for('static', filename='images/logo.svg') }}" alt="" /></span>
 						<h1>Furo</h1>
-						One stop solution to investing in the era of web 3.0 {{ session.phantom_key }}</p>
+						One stop solution to investing in the era of web 3.0 {{ session['phantom_key'] }}</p>
 					</header>
 
 				<!-- Nav -->
@@ -39,7 +39,15 @@
 							<li><a href="/" class="active">Asset Baskets</a></li>
 							<li><a href="/btfd">BTFD</a></li>
 							<li><a href="/create_index">Custom Baskets </a></li>
-							<li><a id="phantom_account" onclick="getAccount()">Connect Phantom Wallet</a></li>
+							<li>
+								<a id="phantom_account" onclick="getAccount()">
+									{% if session['phantom_key'] %} 
+										Disconnect Phantom Wallet 
+									{% else %}  
+										Connect Phantom Wallet
+									{% endif %}
+								</a>
+							</li>
 						</ul>
 					</nav>
 					
