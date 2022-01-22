@@ -17,6 +17,10 @@ function get_asset_data(){
             var input1 = document.createElement("input");
             var label1 = document.createElement("Label");
             var input2 = document.createElement("input");
+            var hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = asset_data[i]['Market'];
+            hidden.value = parseFloat(asset_data[i]['Value']+ 3*asset_data[i]['Confidence']).toFixed(4);
             input1.type = "checkbox";
             input1.id = "check_" + asset_data[i]['Market'];
             input1.name = asset_data[i]['Market'];
@@ -24,13 +28,14 @@ function get_asset_data(){
             input1.setAttribute("onclick","EnableDisableTextBox(this)");
             input1.value = 1; 
             input2.type = "text";
-            input2.placeholder = "weight"
+            input2.placeholder = "%dip";
             input2.id = "weight_" + asset_data[i]['Market'];
             input2.name = asset_data[i]['Market'];
             input2.disabled = "disabled"
             tdnum.appendChild(textnum);
             td1.appendChild(text1);
             td2.appendChild(text2);
+            td2.appendChild(hidden);
             td3.appendChild(input1);
             td3.appendChild(label1);
             td4.appendChild(input2);

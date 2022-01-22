@@ -6,7 +6,6 @@ import pandas as pd
 from csv import writer
 from flask_session import Session
 
-
 app = Flask(__name__)
 app.secret_key = "abc" 
 # adding sessions for storing phantom key
@@ -14,14 +13,15 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-
+# to stream live pyth data
 def event_stream():
     data_dic = {}
     while True:
         pyth_data = pd.read_csv("out.csv")
+        # updates every 0.5seconds
         time.sleep(0.5)
-        data = json.dumps(pyth_data.to_dict(orient="records")) 
-        yield f"data:{data}\n\n"
+        pyth_data = json.dumps(pyth_data.to_dict(orient="records")) 
+        yield f"data:{pyth_data}\n\n"
 
 @app.route("/")
 def index():
@@ -42,7 +42,7 @@ def create_index():
         
         flash("New Index added successfully")
 
-        return render_template("index.html")
+        return render_template("create_index.html")
     else :
         return render_template("create_index.html")
         
@@ -76,6 +76,18 @@ def phantom_connected():
         req = request.get_json()
         session['phantom_key'] = req['key']
         return "recieved"
+
+@app.route("/btfd", methods = ['GET', 'POST'])
+def btfd():
+    if request.method == "GET":
+        return render_template("btfd.html")
+    elif request.method == "POST":
+        req = request.form
+        for k in req:
+            if (k!="index_name" and len(req.getlist(k)) > 1):
+                print(k,req.getlist(k))
+        flash("Limit order placed successfully")
+        return render_template("btfd.html")
 
 
 if __name__ == "__main__":

@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Furo Create Basket</title>
-		<meta charset="utf-8" />
+		<title>Furo BTFD</title>
 		<link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}">
+		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
 		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
@@ -15,7 +15,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1>Create Custom Basket</h1>
+						<h1>BTFD</h1>
 						<p>
 							{% with messages = get_flashed_messages() %}  
 								{% if messages %}  
@@ -29,20 +29,18 @@
 
 					<nav id="nav">
 						<ul>
-							<li><a href="/" >Asset Baskets</a></li>
-							<li><a href="/btfd">BTFD</a></li>
-							<li><a href="/create_index" class="active">Custom Baskets </a></li>
+							<li><a href="/">Asset Baskets</a></li>
+							<li><a href="/btfd"class="active">BTFD</a></li>
+							<li><a href="/create_index">Custom Baskets </a></li>
 							<li><a onclick="getAccount()">Connect Phantom Wallet</a></li>
 						</ul>
 					</nav>
-					
-
 				<!-- Main -->
 					<div id="main">
 						<section id="intro" class="main">
 							<div class="spotlight">
 								<div class="content">
-									<form action="/create_index" method="post">
+									<form action="/btfd" method="post">
 
 									<div class="table-wrapper">
 										
@@ -51,17 +49,17 @@
 												<thead>
 													<tr>
 														<td></td>
-														<td><input type="text" id ="index_name" name="index_name" placeholder="Basket Name" required></td>
 														<td></td>
 														<td></td>
-														<td><input type="submit" class="button  small" value="Create Basket"></td>
+														<td></td>
+														<td><input type="submit" class="button primary small" value="BTFD"></td>
 													</tr>
 													<tr>
 														<th width="5%">#</th>
 														<th width="50%">Market</th>
 														<th width="20%">Price</th>
 														<th width="5%">Select</th>
-														<th width="20%">Weight</th> 
+														<th width="20%">%dip</th>  
 													</tr>
 												</thead>
 												<tbody id="asset-data-table-tbody">
@@ -72,7 +70,8 @@
 														<td></td>
 														<td></td>
 														<td></td>
-														<td><input type="submit" class="button fit" value="Create Index"></td>
+														<td></td>
+														<td><input type="submit" class="button primary fit" value="BTFD"></td>
 													</tr>
 												</tfoot>
 											
@@ -125,7 +124,7 @@
 		<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-		<script src="{{ url_for('static', filename='assets/js/create_index.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/btfd.js') }}"></script>
 
 	</body>
 </html>
