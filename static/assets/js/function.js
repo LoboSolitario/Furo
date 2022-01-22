@@ -10,6 +10,7 @@ function get_index_data(){
         // setting the value of index for the first page load.
         index = index_list['index1'];
     });
+
     
 }
 
@@ -73,22 +74,43 @@ eventSource.onmessage = function(e) {
 };
 
 
+const getProvider = async () => {
+    if ("solana" in window) {
+      
+        await window.solana.connect(); // opens wallet to connect to
 
+        const provider = window.solana;
+        if (provider.isPhantom) {
+            console.log("Is Phantom installed?  ", provider.isPhantom);
+            return provider;
+        }
+    } 
+};
 
+function getAccount(){
+    getProvider().then(provider => {
+        var phantom_key = provider.publicKey.toString()
+        if(phantom_key){
+            login_text = document.getElementById("phantom_account")
+            login_text.innerHTML = "Phantom wallet Connected"
+            send_key = JSON.stringify({
+                key: phantom_key
+            })
+            console.log(send_key)
+            fetch('/phantom_connected', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: send_key
+            }).then(function(response){
+                console.log(response)
+            })
+        }
+    })
+    .catch(function(error){
+        console.log(error)
+    });
 
-function disconnectAccount()
-{
-  window.solana.disconnect();
-  window.solana.on('disconnect', () => console.log("disconnected!"))
-
-}
-function getAccount()
-{
-    window.solana.connect();
-    window.solana.request({ method: "connect" })
-
-    window.solana.isConnected
-    window.solana.autoApproved
-
-    console.log(window.solana.publicKey.toString());
-}
+  }

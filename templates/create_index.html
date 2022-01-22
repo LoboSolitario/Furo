@@ -14,7 +14,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1>Create Index</h1>
+						<h1>Create Custom Basket</h1>
 						<p>
 							{% with messages = get_flashed_messages() %}  
 								{% if messages %}  
@@ -25,6 +25,16 @@
 							{% endwith %}  
 						</p>
 					</header>
+
+					<nav id="nav">
+						<ul>
+							<li><a href="/" >Asset Baskets</a></li>
+							<li><a>BTFD</a></li>
+							<li><a class="active">Custom Baskets </a></li>
+							<li><a onclick="getAccount()">Connect Phantom Wallet</a></li>
+						</ul>
+					</nav>
+					
 
 				<!-- Main -->
 					<div id="main">
@@ -39,16 +49,16 @@
 											
 												<thead>
 													<tr>
-														<td></td>
 														<td><input type="text" id ="index_name" name="index_name" placeholder="Index Name" required></td>
+														<td></td>
 														<td></td>
 														<td><input type="submit" class="button  small" value="Create Index"></td>
 													</tr>
 													<tr>
-														<th>Market</th>
-														<th>Price</th>
-														<th>Select</th>
-														<th>Weight</th> 
+														<th width="60%">Market</th>
+														<th width="25%">Price</th>
+														<th width="5%">Select</th>
+														<th width="10%">Weight</th> 
 													</tr>
 												</thead>
 												<tbody id="asset-data-table-tbody">

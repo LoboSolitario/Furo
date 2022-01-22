@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Stellar by HTML5 UP</title>
+		<title>Furo</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
 		<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
 		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
@@ -14,7 +15,7 @@
 			<div id="wrapper">
 
 				<!-- Header -->
-				<section>
+				<!-- <section>
 					<div class="main ">
 						<div class="sticky-connect"style="float:right">
 							<button onclick="getAccount()">
@@ -23,25 +24,23 @@
 						</div>
 					</div>
 					
-				</section>
+				</section>	 -->
 				
 				
 					<header id="header" class="alt">
-						
-					
 						<span class="logo"><img src="{{ url_for('static', filename='images/logo.svg') }}" alt="" /></span>
 						<h1>Furo</h1>
-						One stop solution to investing in the era of web 3.0</p>
+						One stop solution to investing in the era of web 3.0 {{ session.phantom_key }}</p>
 					</header>
 
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li><a class="active">Custom Basket</a></li>
-							<li><a>BTFD</a></li>
-							<li><a >Connect Phantom Wallet</a></li>
+							<li><a href="/" class="active">Asset Baskets</a></li>
+							<li><a >BTFD</a></li>
+							<li><a href="/create_index">Custom Baskets </a></li>
+							<li><a id="phantom_account" onclick="getAccount()">Connect Phantom Wallet</a></li>
 						</ul>
-						
 					</nav>
 					
 				<!-- Main -->

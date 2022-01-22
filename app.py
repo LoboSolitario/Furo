@@ -4,9 +4,16 @@ import json
 import time
 import pandas as pd
 from csv import writer
+from flask_session import Session
+
 
 app = Flask(__name__)
 app.secret_key = "abc" 
+# adding sessions for storing phantom key
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
 
 def event_stream():
     data_dic = {}
@@ -62,6 +69,13 @@ def get_index_data():
 def get_asset_data():
     asset_data = pd.read_csv("out.csv")
     return jsonify(asset_data.to_dict(orient="records"))
+
+@app.route("/phantom_connected", methods = (["POST"]))
+def phantom_connected():
+    if request.method == "POST":
+        req = request.get_json()
+        session['phantom_key'] = req['key']
+        return "recieved"
 
 
 if __name__ == "__main__":
