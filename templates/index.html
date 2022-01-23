@@ -1,131 +1,150 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Furo</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
-		<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
-		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
-	</head>
-	<body class="is-preload" onload="get_index_data()" >
 
-		<!-- Wrapper -->
-			<div id="wrapper">
-				
-					<header id="header" class="alt">
-						<span class="logo"><img src="{{ url_for('static', filename='images/logo.svg') }}" alt="" /></span>
-						<h1>Furo</h1>
-						<p>One stop solution to investing in the era of web 3.0</p>
-					</header>
+<head>
+	<title>Furo</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+	<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+	<noscript>
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" />
+	</noscript>
+</head>
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li><a href="/" class="active">Asset Baskets</a></li>
-							<li><a href="/btfd">BTFD</a></li>
-							<li><a href="/create_index">Create Baskets </a></li>
-							<li><a href="/your_index">Your Baskets </a></li>
-							<li>
-								<a id="phantom_account" onclick="getAccount()">
-									{% if session['phantom_key'] %} 
-										Disconnect Phantom Wallet 
-									{% else %}  
-										Connect Phantom Wallet
-									{% endif %}
-								</a>
-							</li>
+<body class="is-preload" onload="get_index_data()">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<header id="header" class="alt">
+			<span class="logo"><img src="{{ url_for('static', filename='images/logo.svg') }}" alt="" /></span>
+			<h1>Furo</h1>
+			<p>One stop solution to investing in the era of web 3.0</p>
+		</header>
+
+		<!-- Nav -->
+		<nav id="nav">
+			<ul>
+				<li><a href="/" class="active">Asset Baskets</a></li>
+				<li><a href="/btfd">BTFD</a></li>
+				<li><a href="/create_index">Create Baskets </a></li>
+				<li><a href="/your_index">Your Baskets </a></li>
+				<li>
+					<a id="phantom_account" onclick="getAccount()">
+						{% if session['phantom_key'] %}
+						Disconnect Phantom Wallet
+						{% else %}
+						Connect Phantom Wallet
+						{% endif %}
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Introduction -->
+			<section id="intro" class="main">
+				<div class="spotlight">
+					<div class="content">
+						<ul class="actions fit small">
+							<li><a id="index1" class="button primary fit small" onclick="selectIndex(this.id)">Crypto
+									Large Cap</a></li>
+							<li><a id="index2" class="button primary fit small" onclick="selectIndex(this.id)">Solana
+									DeFi</a></li>
+							<li><a id="index3" class="button primary fit small"
+									onclick="selectIndex(this.id)">Gold/Crypto</a></li>
+							<li><a id="index4" class="button primary fit small" onclick="selectIndex(this.id)">All
+									Weather</a></li>
+							<li><a id="index5" class="button primary fit small"
+									onclick="selectIndex(this.id)">Exchanges</a></li>
+							<li><a id="index6" class="button primary fit small" onclick="selectIndex(this.id)">Solana
+									TradeFi</a></li>
 						</ul>
-					</nav>
-					
-				<!-- Main -->
-					<div id="main">
+						<div class="row">
+							<div class="col-6 col-12-medium">
+								<b>
+									<h2 id="basket_name">Crypto Large Cap</h2>
+								</b>
+							</div>
+							<div class="col-6 col-12-medium"></div>
+						</div>
+						<div class="row">
+							<div class="col-7 col-12-medium">
+								<h4><b>Overview</b></h4>
+							</div>
+							<div class="col-2 col-12-medium">
+								<h4><b>Volatility</b></h4>
+							</div>
+							<div class="col-3 col-12-medium">
+								<h4><b>Minimum Investment</b></h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-7 col-12-medium">
+								<p id="basket_overview">The basket gives exposure to the top blockchain ecosystems
+									available. Large market cap layer 1's are usually well-established, and the
+									probability of such networks going bust are low.</p>
+							</div>
+							<div class="col-2 col-12-medium">
+								<b></b>
+								<p id="basket_risk" style="color:#fab700">Medium</p>
+							</div>
+							<div class="col-3 col-12-medium">
+								$ 100
+							</div>
+						</div>
+						<div class="table-wrapper">
+							<table id="pyth-data-table">
+								<thead>
+									<tr>
+										<th width="5%">#</th>
+										<th width=65%>Market</th>
+										<th width=20%>Price</th>
+										<th width=10%>Weights</th>
+									</tr>
+								</thead>
+								<tbody id="pyth-data-table-tbody">
 
-						<!-- Introduction -->
-							<section id="intro" class="main">
-								<div class="spotlight">
-									<div class="content">
-										<ul class="actions fit small">
-											<li><a id="index1" class="button primary fit small" onclick="selectIndex(this.id)">Layer 1</a></li>
-											<li><a id="index2" class="button primary fit small" onclick="selectIndex(this.id)">Solana DeFi</a></li>
-											<li><a id="index3" class="button primary fit small" onclick="selectIndex(this.id)">Gold/Crypto</a></li>
-											<li><a id="index4" class="button primary fit small" onclick="selectIndex(this.id)">All Weather</a></li>
-											<li><a id="index5" class="button primary fit small" onclick="selectIndex(this.id)">Exchanges</a></li>
-											<li><a id="index6" class="button primary fit small" onclick="selectIndex(this.id)">SOL DEX</a></li>
-										</ul>
-										<div class="table-wrapper">
-											<table id="pyth-data-table">
-												<thead>
-													<tr>
-														<th width="5%">#</th>
-														<th width=65%>Market</th>
-														<th width=20%>Price</th>
-														<th width=10%>Weights</th>
-													</tr>
-												</thead>
-												<tbody id="pyth-data-table-tbody">
-
-												</tbody>
-												<tfoot>
-													<tr>
-														<td></td>
-														<td><input type="text" id="basket_quantity" name="basket_quantity" placeholder="Enter order quantity"></td>
-														<td></td>
-														<td><a id="place_order" class="button primary fit small" onclick="place_order()">Place Order</a></td>
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-									</div>
-								</div>
-							</section>
-							
-
+								</tbody>
+								<tfoot>
+									<tr>
+										<td></td>
+										<td><input type="text" id="basket_quantity" name="basket_quantity"
+												placeholder="Enter Investment Amount"></td>
+										<td></td>
+										<td><a id="place_order" class="button primary fit small"
+												onclick="place_order()">Place Order</a></td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
 					</div>
+				</div>
+			</section>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<section>
-							<h2>Aliquam sed mauris</h2>
-							<p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit, vitae tincidunt odio.</p>
-							<ul class="actions">
-								<li><a href="/create_index" class="button">Create Index</a></li>
-							</ul>
-						</section>
-						<section>
-							<h2>Etiam feugiat</h2>
-							<dl class="alt">
-								<dt>Address</dt>
-								<dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
-								<dt>Phone</dt>
-								<dd>(000) 000-0000 x 0000</dd>
-								<dt>Email</dt>
-								<dd><a href="/create_index">information@untitled.tld</a></dd>
-							</dl>
-							<ul class="icons">
-								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
-							</ul>
-						</section>
-						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
 
-			</div>
+		</div>
 
-		<!-- Scripts -->
-			<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/function.js') }}"></script>
-			<script src="{{ url_for('static', filename='assets/js/phantom_connect.js') }}"></script>
+		<!-- Footer -->
+		{% include 'footer.html' %}
 
-	</body>
+	</div>
+
+	<!-- Scripts -->
+	<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/function.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/phantom_connect.js') }}"></script>
+
+</body>
+
 </html>

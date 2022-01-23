@@ -29,6 +29,7 @@ function get_asset_data(){
             input1.value = 1; 
             input2.type = "text";
             input2.placeholder = "%dip";
+            input2.autocomplete="off";
             input2.id = "weight_" + asset_data[i]['Market'];
             input2.name = asset_data[i]['Market'];
             input2.disabled = "disabled"
