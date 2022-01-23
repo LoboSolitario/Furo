@@ -20,23 +20,6 @@ function selectIndex(index_name){
         index = index_list[index_name];
     }
 }
-//Eventlisteners for button clicks
-// index1 = document.getElementById("index1");
-// index1.addEventListener('click',function(){
-//     selectIndex('index1');
-// });
-// index2 = document.getElementById("index2");
-// index2.addEventListener('click',function(){
-//     selectIndex('index2');
-// });
-// index3 = document.getElementById("index3");
-// index3.addEventListener('click',function(){
-//     selectIndex('index3');
-// });
-// index4 = document.getElementById("index4");
-// index4.addEventListener('click',function(){
-//     selectIndex('index4');
-// });
 
 table = document.getElementById("pyth-data-table");
 eventSource = new EventSource("/stream")
@@ -74,45 +57,21 @@ eventSource.onmessage = function(e) {
 };
 
 
-const getProvider = async () => {
-    if ("solana" in window) {
-      
-        await window.solana.connect(); // opens wallet to connect to
-
-        const provider = window.solana;
-        if (provider.isPhantom) {
-            console.log("Is Phantom installed?  ", provider.isPhantom);
-            return provider;
-        }
-    } 
-};
-
-function getAccount(){
-    getProvider().then(provider => {
-        var phantom_key = provider.publicKey.toString()
-        if(phantom_key){
-            login_text = document.getElementById("phantom_account")
-            login_text.innerHTML = "Phantom Wallet Connected"
-            send_key = JSON.stringify({
-                key: phantom_key
-            })
-            console.log(send_key)
-            fetch('/phantom_get', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: send_key
-            }).then(function(response){
-                console.log(response)
-            })
-        }
+  function place_order(){
+    var quantity = document.getElementById("basket_quantity").value;
+    var req_data = JSON.stringify({
+        quantity : quantity,
+        index : index
     })
-    .catch(function(error){
-        console.log(error)
-    });
+    fetch('/place_order', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: req_data
+    }).then(function(response){
+        console.log(response)
+    })
 
   }
-
-  

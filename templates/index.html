@@ -13,24 +13,11 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-
-				<!-- Header -->
-				<!-- <section>
-					<div class="main ">
-						<div class="sticky-connect"style="float:right">
-							<button onclick="getAccount()">
-								Connect Phantom Wallet
-							</button>
-						</div>
-					</div>
-					
-				</section>	 -->
-				
 				
 					<header id="header" class="alt">
 						<span class="logo"><img src="{{ url_for('static', filename='images/logo.svg') }}" alt="" /></span>
 						<h1>Furo</h1>
-						One stop solution to investing in the era of web 3.0 {{ session['phantom_key'] }}</p>
+						<p>One stop solution to investing in the era of web 3.0</p>
 					</header>
 
 				<!-- Nav -->
@@ -38,7 +25,8 @@
 						<ul>
 							<li><a href="/" class="active">Asset Baskets</a></li>
 							<li><a href="/btfd">BTFD</a></li>
-							<li><a href="/create_index">Custom Baskets </a></li>
+							<li><a href="/create_index">Create Baskets </a></li>
+							<li><a href="/your_index">Your Baskets </a></li>
 							<li>
 								<a id="phantom_account" onclick="getAccount()">
 									{% if session['phantom_key'] %} 
@@ -79,6 +67,14 @@
 												<tbody id="pyth-data-table-tbody">
 
 												</tbody>
+												<tfoot>
+													<tr>
+														<td></td>
+														<td><input type="text" id="basket_quantity" name="basket_quantity" placeholder="Enter order quantity"></td>
+														<td></td>
+														<td><a id="place_order" class="button primary fit small" onclick="place_order()">Place Order</a></td>
+													</tr>
+												</tfoot>
 											</table>
 										</div>
 									</div>
@@ -129,6 +125,7 @@
 			<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
 			<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
 			<script src="{{ url_for('static', filename='assets/js/function.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/phantom_connect.js') }}"></script>
 
 	</body>
 </html>

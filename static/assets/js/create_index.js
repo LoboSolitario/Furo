@@ -63,4 +63,3 @@ function EnableDisableTextBox(check_asset) {
         weight_asset.focus();
     }
 }
- 

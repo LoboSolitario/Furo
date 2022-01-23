@@ -5,6 +5,8 @@ import time
 import pandas as pd
 from csv import writer
 from flask_session import Session
+import FTX_Class
+import random
 
 app = Flask(__name__)
 app.secret_key = "abc" 
@@ -32,7 +34,7 @@ def create_index():
     if request.method =='POST': 
         req = request.form
         index_name = req['index_name']
-        with open('index.csv', 'a',newline='') as f_object:
+        with open('custom_index.csv', 'a',newline='') as f_object:
             writer_object = writer(f_object)
             for k in req:
                 if (k!="index_name"):
@@ -42,7 +44,7 @@ def create_index():
         
         flash("New Index added successfully")
 
-        return render_template("create_index.html")
+        return render_template("your_index.html")
     else :
         return render_template("create_index.html")
         
@@ -62,7 +64,15 @@ def get_index_data():
     data['combined']= data.values.tolist()
     data = data.drop(['asset','weight'],axis=1)
     data = data.groupby('index_name')['combined'].apply(list).to_dict()
-    index = {'index1': [['Crypto.LTC/USD',12], 'Crypto.BTC/USD', 'Equity.US.QQQ/USD'], 'index2': ['Crypto.LTC/USD', 'Crypto.BTC/USD']}
+    return jsonify(data)
+
+@app.route("/get_custom_index_data")
+def get_custom_index_data():
+    data = pd.read_csv("custom_index.csv")
+    data = data.set_index('index_name')
+    data['combined']= data.values.tolist()
+    data = data.drop(['asset','weight'],axis=1)
+    data = data.groupby('index_name')['combined'].apply(list).to_dict()
     return jsonify(data)
 
 @app.route("/get_asset_data")
@@ -75,7 +85,27 @@ def phantom_get():
     if request.method == "POST":
         req = request.get_json()
         session['phantom_key'] = req['key']
-        return render_template("index.html")
+        return "phantom logged in"
+
+@app.route("/place_order", methods = ['POST'])
+def place_order():
+    if request.method == "POST":
+        api_key = ''
+        api_secret = ''
+        c = FTX_Class.FtxClient(api_key=api_key, api_secret=api_secret)
+        req = request.get_json()
+        quantity = float(req['quantity'])
+        index_list = req["index"]
+        pyth_data = pd.read_csv("out.csv")
+        pyth_data.set_index('Market', inplace=True)
+        for l in index_list:
+            price = pyth_data.loc[l[0]].Value
+            asset_quantity = (quantity*l[1])/(price*100)
+            print(l[0].split(".")[1], "buy", 0.001, asset_quantity,"12434")
+            #print(c.place_order(l[0].split(".")[1], "buy", 0.005, asset_quantity,f"{random.randint(10000000,1000000000)}"))
+
+        return "order placed successfully"
+    
 
 @app.route("/btfd", methods = ['GET', 'POST'])
 def btfd():
@@ -89,6 +119,10 @@ def btfd():
         flash("Limit order placed successfully")
         return render_template("btfd.html")
 
+@app.route("/your_index", methods = ['GET'])
+def your_index():
+    if request.method == "GET":
+        return render_template("your_index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

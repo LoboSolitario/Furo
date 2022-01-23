@@ -16,15 +16,7 @@
 				<!-- Header -->
 					<header id="header">
 						<h1>Create Custom Basket</h1>
-						<p>
-							{% with messages = get_flashed_messages() %}  
-								{% if messages %}  
-									{% for message in messages %}  
-										<p>{{ message }}</p>  
-									{% endfor %}  
-								{% endif %}  
-							{% endwith %}  
-						</p>
+						
 					</header>
 
 					<nav id="nav">
@@ -32,6 +24,7 @@
 							<li><a href="/" >Asset Baskets</a></li>
 							<li><a href="/btfd">BTFD</a></li>
 							<li><a href="/create_index" class="active">Custom Baskets </a></li>
+							<li><a href="/your_index">Your Baskets</a></li>
 							<li><a onclick="getAccount()">
 								{% if session['phantom_key'] %} 
 										Disconnect Phantom Wallet 
@@ -132,6 +125,7 @@
 		<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/create_index.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/phantom_connect.js') }}"></script>
 
 	</body>
 </html>

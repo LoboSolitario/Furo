@@ -1,21 +1,21 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Furo BTFD</title>
-		<link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}">
+		<title>Furo Your Basket</title>
 		<meta charset="utf-8" />
+		<link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
 		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
 	</head>
-	<body class="is-preload" onload = "get_asset_data()">
+	<body class="is-preload" onload = "get_custom_index_data()">
 	
 		<!-- Wrapper -->
 			<div id="wrapper">
 
 				<!-- Header -->
 					<header id="header">
-						<h1>BTFD</h1>
+						<h1>Your Custom Baskets</h1>
 						<p>
 							{% with messages = get_flashed_messages() %}  
 								{% if messages %}  
@@ -29,63 +29,54 @@
 
 					<nav id="nav">
 						<ul>
-							<li><a href="/">Asset Baskets</a></li>
-							<li><a href="/btfd"class="active">BTFD</a></li>
-							<li><a href="/create_index">Custom Baskets </a></li>
-							<li><a href="/your_index">Your Baskets </a></li>
+							<li><a href="/" >Asset Baskets</a></li>
+							<li><a href="/btfd">BTFD</a></li>
+							<li><a href="/create_index">Create Baskets </a></li>
+							<li><a href="/your_index" class="active">Your Baskets </a></li>
 							<li><a onclick="getAccount()">
 								{% if session['phantom_key'] %} 
 										Disconnect Phantom Wallet 
 								{% else %}  
 									Connect Phantom Wallet
-								{% endif %}	
+								{% endif %}
 							</a></li>
 						</ul>
 					</nav>
+					
+
 				<!-- Main -->
 					<div id="main">
 						<section id="intro" class="main">
 							<div class="spotlight">
 								<div class="content">
-									<form action="/btfd" method="post">
-
+									<select name="selectIndex" id="selectIndex" onchange="changeFunc();">
+										<option value="">- Select your custom basket -</option>
+									</select>
+									<br>
 									<div class="table-wrapper">
-										
-										<table id="asset-data-table">
-											
-												<thead>
-													<tr>
+										<table id="pyth-data-table">
+											<thead>
+												<tr>
+													<th width="5%">#</th>
+													<th width=65%>Market</th>
+													<th width=20%>Price</th>
+													<th width=10%>Weights</th>
+												</tr>
+											</thead>
+											<tbody id="pyth-data-table-tbody">
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<td></td>
+														<td><input type="text" id="basket_quantity" name="basket_quantity" placeholder="Enter order quantity"></td>
 														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td><input type="submit" class="button primary small" value="BTFD"></td>
-													</tr>
-													<tr>
-														<th width="5%">#</th>
-														<th width="50%">Market</th>
-														<th width="20%">Price</th>
-														<th width="5%">Select</th>
-														<th width="20%">%dip</th>  
-													</tr>
-												</thead>
-												<tbody id="asset-data-table-tbody">
-												</tbody>
-													
-												<tfoot>
-													<tr>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td><input type="submit" class="button primary fit" value="BTFD"></td>
-													</tr>
-												</tfoot>
-											
+														<td><a id="place_order" class="button primary fit small" onclick="place_order()">Place Order</a></td>
+												</tr>
+											</tfoot>
 										</table>
 									</div>
 								</div>
-							</form>
 							</div>
 						</section>
 					</div>
@@ -131,7 +122,7 @@
 		<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-		<script src="{{ url_for('static', filename='assets/js/btfd.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/your_index.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/phantom_connect.js') }}"></script>
 
 	</body>
