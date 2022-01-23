@@ -7,6 +7,8 @@ from csv import writer
 from flask_session import Session
 import FTX_Class
 import random
+import decimal
+import mango
 
 app = Flask(__name__)
 app.secret_key = "abc" 
@@ -112,12 +114,30 @@ def btfd():
     if request.method == "GET":
         return render_template("btfd.html")
     elif request.method == "POST":
+        wallet = mango.Wallet(bytes(bytearray([67,218,68,118,140,171,228,222,8,29,48,61,255,114,49,226,239,89,151,110,29,136,149,118,97,189,163,8,23,88,246,35,187,241,107,226,47,155,40,162,3,222,98,203,176,230,34,49,45,8,253,77,136,241,34,4,80,227,234,174,103,11,124,146])))
+        context = mango.ContextBuilder.build(cluster_name="devnet")
+        group = mango.Group.load(context)
+        accounts = mango.Account.load_all_for_owner(context, wallet.address, group)
+        account = accounts[0]
         req = request.form
+        return_val =""
         for k in req:
             if (k!="index_name" and len(req.getlist(k)) > 1):
-                print(k,req.getlist(k))
-        flash("Limit order placed successfully")
-        return render_template("btfd.html")
+                lst = req.getlist(k)
+                k = k.split(".")[1]+"C"
+                print(k)
+                stub = context.market_lookup.find_by_symbol(k)
+                market = mango.ensure_market_loaded(context, stub)
+                market_operations = mango.create_market_operations(context, wallet, account, market, dry_run=False)
+                order = mango.Order.from_basic_info(side=mango.Side.BUY,
+                                    price=decimal.Decimal(float(lst[0])*(100-float(lst[2]))/100),
+                                    quantity=decimal.Decimal(1),
+                                    order_type=mango.OrderType.POST_ONLY)
+                placed_order = market_operations.place_order(order)
+                print("\n\nplaced_order\n\t", placed_order)
+                return_val = "Order placed at Mango. " + str(placed_order)
+        print(return_val)
+        return render_template("btfd.html", return_val = return_val)
 
 @app.route("/your_index", methods = ['GET'])
 def your_index():

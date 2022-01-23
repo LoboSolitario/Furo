@@ -16,22 +16,14 @@
 				<!-- Header -->
 					<header id="header">
 						<h1>BTFD</h1>
-						<p>
-							{% with messages = get_flashed_messages() %}  
-								{% if messages %}  
-									{% for message in messages %}  
-										<p>{{ message }}</p>  
-									{% endfor %}  
-								{% endif %}  
-							{% endwith %}  
-						</p>
+
 					</header>
 
 					<nav id="nav">
 						<ul>
 							<li><a href="/">Asset Baskets</a></li>
 							<li><a href="/btfd"class="active">BTFD</a></li>
-							<li><a href="/create_index">Custom Baskets </a></li>
+							<li><a href="/create_index">Create Baskets </a></li>
 							<li><a href="/your_index">Your Baskets </a></li>
 							<li><a onclick="getAccount()">
 								{% if session['phantom_key'] %} 
@@ -47,6 +39,15 @@
 						<section id="intro" class="main">
 							<div class="spotlight">
 								<div class="content">
+									{% with messages = get_flashed_messages() %}  
+										{% if messages %}  
+											<h3>Order placed on Mango dex</h3>
+											{% for message in messages %}  
+												<blockquote>{{ message }}</blockquote>  
+											{% endfor %}  
+										{% endif %}  
+									{% endwith %} 
+
 									<form action="/btfd" method="post">
 
 									<div class="table-wrapper">
@@ -59,7 +60,7 @@
 														<td></td>
 														<td></td>
 														<td></td>
-														<td><input type="submit" class="button primary small" value="BTFD"></td>
+														<td><input type="submit" class="button primary small" value="Place order on Mango Dex"></td>
 													</tr>
 													<tr>
 														<th width="5%">#</th>
@@ -78,7 +79,7 @@
 														<td></td>
 														<td></td>
 														<td></td>
-														<td><input type="submit" class="button primary fit" value="BTFD"></td>
+														<td><input type="submit" class="button primary fit" value="Place order on Mango Dex"></td>
 													</tr>
 												</tfoot>
 											
@@ -133,6 +134,13 @@
 		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/btfd.js') }}"></script>
 		<script src="{{ url_for('static', filename='assets/js/phantom_connect.js') }}"></script>
+		<script>
 
+			var val = "{{return_val}}"
+			console.log(val)
+			if(val!=""){
+				alert(val);
+			}
+		</script>
 	</body>
 </html>

@@ -53,7 +53,6 @@ function get_asset_data(){
 
 
 function EnableDisableTextBox(check_asset) {
-    console.log(check_asset.name)
     var weight_asset = document.getElementById("weight_" + check_asset.name);
     if (!check_asset.checked) {
         weight_asset.value = "";
