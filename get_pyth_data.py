@@ -4,7 +4,6 @@ from pythclient.utils import get_key
 import asyncio
 import sys
 import pandas as pd
-import streamlit as st
 use_program = len(sys.argv) >= 2 and sys.argv[1] == "program"
 solana_network="devnet"
 attr_list = []
@@ -29,7 +28,8 @@ async def get_data_pyth():
                     df.loc[len(df)]=l
 
             df.to_csv("out.csv", index=False)
-  
+
+print("Starting pyth data stream.")
 loop = asyncio.get_event_loop()
 asyncio.ensure_future(get_data_pyth())
 loop.run_forever()
