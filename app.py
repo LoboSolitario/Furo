@@ -125,16 +125,14 @@ def btfd():
             if (k!="index_name" and len(req.getlist(k)) > 1):
                 lst = req.getlist(k)
                 k = k.split(".")[1]+"C"
-                print(k)
                 stub = context.market_lookup.find_by_symbol(k)
                 market = mango.ensure_market_loaded(context, stub)
                 market_operations = mango.create_market_operations(context, wallet, account, market, dry_run=False)
                 order = mango.Order.from_basic_info(side=mango.Side.BUY,
-                                    price=decimal.Decimal(float(lst[0])*(100-float(lst[2]))/100),
-                                    quantity=decimal.Decimal(1),
+                                    price=decimal.Decimal(float(lst[0])*(100-float(lst[3]))/100),
+                                    quantity=decimal.Decimal(float(lst[2])),
                                     order_type=mango.OrderType.POST_ONLY)
                 placed_order = market_operations.place_order(order)
-                print("\n\nplaced_order\n\t", placed_order)
                 return_val = "Order placed at Mango. " + str(placed_order)
         print(return_val)
         return render_template("btfd.html", return_val = return_val)

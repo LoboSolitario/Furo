@@ -10,6 +10,7 @@ function get_asset_data(){
             var td2 = document.createElement('td');
             var td3 = document.createElement('td');
             var td4 = document.createElement('td');
+            var td5 = document.createElement('td');
             var tdnum = document.createElement('td');
             var textnum = document.createTextNode(i+1);
             var text1 = document.createTextNode(asset_data[i]['Market'].split(".").pop());
@@ -17,6 +18,7 @@ function get_asset_data(){
             var input1 = document.createElement("input");
             var label1 = document.createElement("Label");
             var input2 = document.createElement("input");
+            var input3 = document.createElement("input");
             var hidden = document.createElement("input");
             hidden.type = "hidden";
             hidden.name = asset_data[i]['Market'];
@@ -33,6 +35,12 @@ function get_asset_data(){
             input2.id = "weight_" + asset_data[i]['Market'];
             input2.name = asset_data[i]['Market'];
             input2.disabled = "disabled"
+            input3.type = "text";
+            input3.placeholder = "Quantity";
+            input3.autocomplete="off";
+            input3.id = "quantity_" + asset_data[i]['Market'];
+            input3.name = asset_data[i]['Market'];
+            input3.disabled = "disabled"
             tdnum.appendChild(textnum);
             td1.appendChild(text1);
             td2.appendChild(text2);
@@ -40,11 +48,13 @@ function get_asset_data(){
             td3.appendChild(input1);
             td3.appendChild(label1);
             td4.appendChild(input2);
+            td5.appendChild(input3);
             tdnum.appendChild(textnum);
             tr.appendChild(tdnum);
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
+            tr.appendChild(td5);
             tr.appendChild(td4);
             tbody.appendChild(tr);
         }
@@ -55,17 +65,22 @@ function get_asset_data(){
 
 function EnableDisableTextBox(check_asset) {
     var weight_asset = document.getElementById("weight_" + check_asset.name);
+    var quantity_asset = document.getElementById("quantity_" + check_asset.name);
     if (!check_asset.checked) {
         weight_asset.value = "";
         weight_asset.disabled = true;
+        quantity_asset.disabled = false;
+        quantity_asset.disabled = true;
     }
     else{
         weight_asset.disabled = false;
         weight_asset.required = true;
+        quantity_asset.disabled = false;
+        quantity_asset.required = true;
 
     }
     if (!weight_asset.disabled) {
-        weight_asset.focus();
+        quantity_asset.focus();
     }
 }
  
