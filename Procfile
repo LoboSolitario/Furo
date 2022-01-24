@@ -1,2 +1,2 @@
 web: gunicorn app:app
-worker: python get_pyth_data.py
+run: python get_pyth_data.py
