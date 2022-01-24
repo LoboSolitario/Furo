@@ -25,6 +25,7 @@ async def get_data_pyth():
                         pr.aggregate_price,
                         pr.aggregate_price_confidence_interval
                     ]
+                    print(l)
                     df.loc[len(df)]=l
 
             df.to_csv("out.csv", index=False)
