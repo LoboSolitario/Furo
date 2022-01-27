@@ -24,7 +24,7 @@ def event_stream():
         pyth_data = pd.read_csv("out.csv")
         # updates every 0.5seconds
         time.sleep(0.5)
-        pyth_data = json.dumps(pyth_data.to_dict(orient="records")) 
+        pyth_data = json.dumps(pyth_data.to_dict(orient="records"))
         yield f"data:{pyth_data}\n\n"
 
 @app.route("/")
@@ -143,4 +143,4 @@ def your_index():
         return render_template("your_index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port='80',debug=True)

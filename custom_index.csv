@@ -10,3 +10,8 @@ major market,Crypto.BCH/USD,23
 major market,Equity.US.NFLX/USD,23
 major market,Crypto.USDC/USD,24
 major market,Crypto.LUNA/USD,43
+new basket,Crypto.BCH/USD,34
+new basket,Equity.US.AAPL/USD,43
+demo-basket,Crypto.BCH/USD,23
+demo-basket,Crypto.LTC/USD,34
+demo-basket,Equity.US.AAPL/USD,33
