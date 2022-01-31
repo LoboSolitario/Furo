@@ -13,7 +13,7 @@
     <a href="https://tejasv-sharma.gitbook.io/litepaper"><strong>Explore the Litepaper »</strong></a>
     <br />
     <br />
-    <a href="https://youtu.be/Bv8TV8OtKFI">View Demo</a>
+    <a href="https://youtu.be/YGK8KnZUFn0">View Demo</a>
     ·
     <a href="https://github.com/LoboSolitario/Furo/issues">Report Bug</a>
     ·
@@ -26,12 +26,12 @@
 
 
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
+## Table of contents ##
   <ol>
     <li><a href="#inspiration">Inspiration</a></li>
     <li><a href="#team-motto">Team Motto</a></li>
-    <li><a href="#what-it-does-">What it does?</a></li>
+    <li><a href="#what-it-does">What it does?</a></li>
+    <li><a href="#how-we-built-it">How we built it?</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -39,16 +39,14 @@
         <li><a href="#running-the-webserver">Running the webserver</a></li>
       </ul>
     </li>
-    <li><a href="#license">How we built it?</a></li>
     <li><a href="#challenges-we-ran-into">Challenges we ran into</a></li>
-    <li><a href="#accomplishments-that-we-are-proud-of">Accomplishments that we are proud of</a></li>
+    <li><a href="#accomplishments-that-were-proud-of">Accomplishments that we're proud of</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#get-in-touch">Get in touch</a></li>
     <li><a href="#acknowledgments">Acknowledgements</a></li>
   </ol>
-</details>
 
 
 
@@ -164,7 +162,7 @@ We are really proud that we are able to showcase our idea with a working demo.
 
 
 
-## What's next for FURO?
+## Roadmap
 
 We have divided our vision into five stages.
 
